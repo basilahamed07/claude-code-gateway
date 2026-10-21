@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  claude-gateway:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: claude-code-gateway
+    restart: unless-stopped
+    ports:
+      - "${GATEWAY_PORT:-4000}:4000"
+    env_file:
+      - ../.env
+    volumes:
+      - ../core/config.yaml:/app/core/config.yaml:ro

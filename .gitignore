@@ -1,0 +1,29 @@
+# Virtual environment (inside core/)
+core/.venv/
+
+# Environment secrets
+.env
+
+# Gateway PID tracking and logs
+core/.gateway*.pid
+logs/
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Gateway root registration (user-local, not project-tracked)
+# ~/.claude-gateway-root

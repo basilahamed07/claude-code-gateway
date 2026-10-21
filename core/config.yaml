@@ -1,0 +1,94 @@
+# Universal Claude Code LLM Gateway - LiteLLM Configuration
+#
+# This file routes Claude Code's Anthropic Messages API requests (/v1/messages)
+# to your chosen backend provider.
+#
+# Run `python configure.py` or edit this file to activate your provider.
+
+model_list:
+  # ============================================================================
+  # Active Model (Selected by GATEWAY_MODEL_ALIAS in .env)
+  # Default: Custom / Internal Endpoint (vLLM / OpenAI-compatible)
+  # ============================================================================
+  - model_name: custom-model
+    litellm_params:
+      model: hosted_vllm/google/gemma-4-31b-it
+      api_base: os.environ/CUSTOM_API_BASE
+      api_key: os.environ/CUSTOM_API_KEY
+      temperature: 0.2
+      top_p: 0.9
+      timeout: 180
+
+  # Also support direct alias by model ID
+  - model_name: gemma-4-31B-it
+    litellm_params:
+      model: hosted_vllm/google/gemma-4-31b-it
+      api_base: os.environ/CUSTOM_API_BASE
+      api_key: os.environ/CUSTOM_API_KEY
+      temperature: 0.2
+      top_p: 0.9
+      timeout: 180
+
+  - model_name: gemma-4-31b-it
+    litellm_params:
+      model: hosted_vllm/google/gemma-4-31b-it
+      api_base: os.environ/CUSTOM_API_BASE
+      api_key: os.environ/CUSTOM_API_KEY
+      temperature: 0.2
+      top_p: 0.9
+      timeout: 180
+
+  - model_name: google/gemma-4-31b-it
+    litellm_params:
+      model: hosted_vllm/google/gemma-4-31b-it
+      api_base: os.environ/CUSTOM_API_BASE
+      api_key: os.environ/CUSTOM_API_KEY
+      temperature: 0.2
+      top_p: 0.9
+      timeout: 180
+
+  # ============================================================================
+  # Additional Provider Examples (Uncomment to enable)
+  # ============================================================================
+
+  # --- Azure OpenAI / Azure AI Foundry ---
+  # - model_name: azure-gpt4o
+  #   litellm_params:
+  #     model: azure/gpt-4o
+  #     api_base: os.environ/AZURE_API_BASE
+  #     api_key: os.environ/AZURE_API_KEY
+  #     api_version: 2024-08-01-preview
+
+  # --- AWS Bedrock (Claude 3.5 Sonnet or Llama 3) ---
+  # - model_name: bedrock-claude
+  #   litellm_params:
+  #     model: bedrock/anthropic.claude-3-5-sonnet-20241022-v2:0
+  #     aws_region_name: os.environ/AWS_REGION_NAME
+  #     aws_access_key_id: os.environ/AWS_ACCESS_KEY_ID
+  #     aws_secret_access_key: os.environ/AWS_SECRET_ACCESS_KEY
+
+  # --- Google Gemini / Vertex AI ---
+  # - model_name: gemini-pro
+  #   litellm_params:
+  #     model: gemini/gemini-2.5-pro
+  #     api_key: os.environ/GEMINI_API_KEY
+
+  # --- Ollama (Local LLM) ---
+  # - model_name: ollama-qwen
+  #   litellm_params:
+  #     model: ollama/qwen2.5-coder:32b
+  #     api_base: http://localhost:11434
+
+  # --- OpenAI Direct ---
+  # - model_name: openai-gpt4o
+  #   litellm_params:
+  #     model: openai/gpt-4o
+  #     api_key: os.environ/OPENAI_API_KEY
+
+litellm_settings:
+  # Drops proprietary Anthropic fields that custom backends might reject
+  drop_params: true
+  set_verbose: false
+
+general_settings:
+  master_key: os.environ/GATEWAY_MASTER_KEY
